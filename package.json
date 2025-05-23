@@ -1,0 +1,38 @@
+{
+  "name": "recall-scanner",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev server/src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soapx/Recall-Scanner.git"
+  },
+  "keywords": [],
+  "contributors": [
+    {
+      "name": "Darius Briggs",
+      "url": "https://github.com/soapx"
+    },
+    {
+      "name": "Dylan Tran",
+      "url": "https://github.com/DylanBT928"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/soapx/Recall-Scanner/issues"
+  },
+  "homepage": "https://github.com/soapx/Recall-Scanner#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.2",
+    "@types/node": "^22.15.21",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.3"
+  }
+}
