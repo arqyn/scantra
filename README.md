@@ -1,1 +1,1 @@
-# FDA-Recall-Receipt-Scanner
+# FDA-Recall-Barcode-Scanner
