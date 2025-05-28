@@ -26,7 +26,7 @@ jobs:
       - name: Server TypeScript Check
         working-directory: ./server
         run: |
-          npx tsc --noEmit --project ./tsconfig.json
+          npx tsc --noEmit
 
   client-check:
     runs-on: ubuntu-latest
@@ -48,4 +48,4 @@ jobs:
       - name: Client TypeScript Check
         working-directory: ./client
         run: |
-          npx tsc --noEmit --project ./tsconfig.json
+          npx tsc --noEmit
