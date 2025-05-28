@@ -7,7 +7,6 @@
     "dev": "ts-node-dev server/src/index.ts",
     "start": "tsc && node dist/index.js",
     "test": "node -e \"console.log('Running tests...'); process.exit(0)\""
-    
   },
   "repository": {
     "type": "git",

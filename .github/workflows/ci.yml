@@ -8,10 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -21,12 +18,43 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+          cache: "npm"
 
       - name: Install dependencies
         run: npm install
 
-      - name: Type Check
-        run: npx tsc --noEmit
+      - name: Server TypeScript Check
+        working-directory: ./server
+        run: |
+          npx tsc --noEmit
 
       - name: Run tests
         run: npm test
+
+      - name: Upload test coverage
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: coverage/
+
+  client-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "npm"
+
+      - name: Install client dependencies
+        working-directory: ./client
+        run: npm install
+
+      - name: Client TypeScript Check
+        working-directory: ./client
+        run: |
+          npx tsc --noEmit
