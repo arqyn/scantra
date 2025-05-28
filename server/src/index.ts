@@ -1,25 +1,25 @@
 import express from "express";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
+import { getFoodRecalls } from "./services/foodRecallService";
+
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-const { getFoodRecalls } = require('./services/foodRecallService');
 
 app.get("/", (_, res) => {
   res.json({ status: "recall scanner backend is running" });
 });
 
 // Food recall API route
-app.get('/api/food-recalls', async (req, res) => {
+app.get("/api/food-recalls", async (req, res) => {
   const limit = Number(req.query.limit) || 10;
 
   try {
     const recalls = await getFoodRecalls(limit);
     res.json(recalls);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch food recalls' });
+    res.status(500).json({ error: "Failed to fetch food recalls" });
   }
 });
 

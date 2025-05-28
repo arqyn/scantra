@@ -5,9 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev server/src/index.ts",
-    "start": "tsc && node dist/index.js",
+    "start": "tsc -p server/tsconfig.json && node dist/index.js",
     "test": "node -e \"console.log('Running tests...'); process.exit(0)\""
-    
   },
   "repository": {
     "type": "git",
@@ -36,6 +35,7 @@
     "expo": "~53.0.0",
     "expo-font": "^13.3.1",
     "express": "^5.1.0",
+    "node-fetch": "^3.3.2",
     "react-native-dotenv": "^3.4.11"
   },
   "devDependencies": {
