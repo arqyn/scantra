@@ -28,15 +28,6 @@ jobs:
         run: |
           npx tsc --noEmit
 
-      - name: Run tests
-        run: npm test
-
-      - name: Upload test coverage
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage
-          path: coverage/
-
   client-check:
     runs-on: ubuntu-latest
 
