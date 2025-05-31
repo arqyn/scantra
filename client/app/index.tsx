@@ -1,7 +1,9 @@
 import { Text, View, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
+
 export default function Index() {
   const router = useRouter();
+
   return (
     <View style={styles.container}>
       <Image
@@ -76,7 +78,6 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 4,
   },
-
   loginText: {
     color: "#fff",
     fontSize: 16,
