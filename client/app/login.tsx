@@ -41,6 +41,13 @@ export default function LoginScreen() {
       <TouchableOpacity style={styles.loginBtn}>
         <Text style={styles.loginText}>Log In</Text>
       </TouchableOpacity>
+
+      <View style={styles.signUpContainer}>
+        <Text style={styles.accountText}>Already have an Account? </Text>
+        <TouchableOpacity>
+          <Text style={styles.switchToSignUp}>Sign Up</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -93,6 +100,19 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: "#fff",
+    fontWeight: "bold",
+  },
+  signUpContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 20,
+  },
+  accountText: {
+    color: "#808080",
+  },
+  switchToSignUp: {
+    color: "#4E148C",
     fontWeight: "bold",
   },
 });
