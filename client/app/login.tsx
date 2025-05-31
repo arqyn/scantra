@@ -42,10 +42,12 @@ export default function LoginScreen() {
         <Text style={styles.loginText}>Log In</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.signUpContainer}>
+      <View style={styles.signUpContainer}>
         <Text style={styles.accountText}>Already have an Account? </Text>
-        <Text style={styles.switchToSignUp}>Sign Up</Text>
-      </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={styles.switchToSignUp}>Sign Up</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
