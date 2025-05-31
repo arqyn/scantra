@@ -1,6 +1,9 @@
 import { Text, View, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { useRouter } from "expo-router";
 
 export default function Index() {
+  const router = useRouter();
+
   return (
     <View style={styles.container}>
       <Image
@@ -15,7 +18,10 @@ export default function Index() {
       <Text style={styles.subtitle}>Your Smart Product Recall Assistant</Text>
       <Text style={styles.accountText}>Already have an account?</Text>
 
-      <TouchableOpacity style={styles.loginButton}>
+      <TouchableOpacity
+        style={styles.loginButton}
+        onPress={() => router.push("/login" as any)}
+      >
         <Text style={styles.loginText}>Log In</Text>
       </TouchableOpacity>
 
@@ -72,7 +78,6 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 4,
   },
-
   loginText: {
     color: "#fff",
     fontSize: 16,
