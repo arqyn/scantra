@@ -78,13 +78,16 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 10,
     marginBottom: 12,
+    height: 50,
   },
   icon: {
-    marginRight: 8,
+    marginRight: 6,
   },
   inputWithIcon: {
     flex: 1,
-    paddingVertical: 12,
+    height: 48,
+    paddingVertical: 0,
+    fontSize: 16,
   },
   forgot: {
     textAlign: "right",
