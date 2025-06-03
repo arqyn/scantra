@@ -24,10 +24,6 @@ export default function Index() {
       >
         <Text style={styles.loginText}>Log In</Text>
       </TouchableOpacity>
-
-      <Text style={styles.signupText}>
-        or <Text style={styles.signupLink}>Sign Up</Text> with email
-      </Text>
     </View>
   );
 }

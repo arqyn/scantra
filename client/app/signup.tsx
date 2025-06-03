@@ -6,26 +6,46 @@ import {
   StyleSheet,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { useRouter } from "expo-router";
 
 export default function LoginScreen() {
-  const router = useRouter();
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome Back</Text>
-      <Text style={styles.subtitle}>Sign in to continue</Text>
+      <Text style={styles.title}>Create An Account</Text>
+      <Text style={styles.subtitle}>Sign up to get started</Text>
 
-      {/* Username Input with Icon */}
+      {/* First Name Input */}
       <View style={styles.inputContainer}>
         <Icon name="user" size={20} color="#888" style={styles.icon} />
         <TextInput
-          placeholder="Username"
+          placeholder="First Name"
           placeholderTextColor="#888"
           style={styles.inputWithIcon}
         />
       </View>
 
-      {/* Password Input with Icon */}
+      {/* Last Name Input */}
+      <View style={styles.inputContainer}>
+        <Icon name="user" size={20} color="#888" style={styles.icon} />
+        <TextInput
+          placeholder="Last Name"
+          placeholderTextColor="#888"
+          style={styles.inputWithIcon}
+        />
+      </View>
+
+      {/* Email Input */}
+      <View style={styles.inputContainer}>
+        <Icon name="envelope" size={20} color="#888" style={styles.icon} />
+        <TextInput
+          placeholder="Email"
+          placeholderTextColor="#888"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          style={styles.inputWithIcon}
+        />
+      </View>
+
+      {/* Password Input */}
       <View style={styles.inputContainer}>
         <Icon name="lock" size={20} color="#888" style={styles.icon} />
         <TextInput
@@ -36,16 +56,20 @@ export default function LoginScreen() {
         />
       </View>
 
-      <TouchableOpacity style={styles.loginBtn}>
-        <Text style={styles.loginText}>Sign In</Text>
-      </TouchableOpacity>
-
-      <View style={styles.signUpContainer}>
-        <Text style={styles.accountText}>Don't have an account? </Text>
-        <TouchableOpacity onPress={() => router.push("/signup")}>
-          <Text style={styles.switchToSignUp}>Sign Up</Text>
-        </TouchableOpacity>
+      {/* Confirm Password Input */}
+      <View style={styles.inputContainer}>
+        <Icon name="lock" size={20} color="#888" style={styles.icon} />
+        <TextInput
+          placeholder="Confirm Password"
+          placeholderTextColor="#888"
+          secureTextEntry
+          style={styles.inputWithIcon}
+        />
       </View>
+
+      <TouchableOpacity style={styles.loginBtn}>
+        <Text style={styles.loginText}>Sign Up</Text>
+      </TouchableOpacity>
     </View>
   );
 }
