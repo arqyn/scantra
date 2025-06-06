@@ -6,3 +6,4 @@ This project was co-founded and developed by:
 - Dylan Tran - [@DylanBT928](https://github.com/DylanBT928)
 - Saeed Halabi - [@saeedhalabi](https://github.com/saeedhalabi)
 - Camryn Brown - [@camrynbrown](https://github.com/camrynbrown)
+- Rafailia Stergiopoulou - [@rafaelaster](https://github.com/soapx/Recall-Scanner.git)
