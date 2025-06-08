@@ -16,13 +16,19 @@ export default function Index() {
         Welcome to <Text style={styles.brand}>Recall Scanner</Text>
       </Text>
       <Text style={styles.subtitle}>Your Smart Product Recall Assistant</Text>
-      <Text style={styles.accountText}>Already have an account?</Text>
 
       <TouchableOpacity
-        style={styles.loginButton}
+        style={styles.accountButton}
         onPress={() => router.push("/login" as any)}
       >
-        <Text style={styles.loginText}>Log In</Text>
+        <Text style={styles.accountText}>Log In</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.accountButton}
+        onPress={() => router.push("/signup" as any)}
+      >
+        <Text style={styles.accountText}>Sign Up</Text>
       </TouchableOpacity>
     </View>
   );
@@ -56,13 +62,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 20,
   },
-  accountText: {
-    fontSize: 13,
-    color: "#808080",
-    textAlign: "center",
-    marginBottom: 32,
-  },
-  loginButton: {
+  accountButton: {
     backgroundColor: "#4E148C",
     paddingVertical: 14,
     width: "100%",
@@ -73,19 +73,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 4,
+    margin: 8,
   },
-  loginText: {
+  accountText: {
     color: "#fff",
     fontSize: 16,
-    fontWeight: "bold",
-  },
-  signupText: {
-    marginTop: 16,
-    fontSize: 14,
-    color: "#555",
-  },
-  signupLink: {
-    color: "#000",
     fontWeight: "bold",
   },
 });
