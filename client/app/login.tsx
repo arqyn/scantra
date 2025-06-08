@@ -6,14 +6,12 @@ import {
   StyleSheet,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { useRouter } from "expo-router";
 
 export default function LoginScreen() {
-  const router = useRouter();
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome Back</Text>
-      <Text style={styles.subtitle}>Sign in to continue</Text>
+      <Text style={styles.subtitle}>Log in to continue</Text>
 
       {/* Username Input with Icon */}
       <View style={styles.inputContainer}>
@@ -36,13 +34,17 @@ export default function LoginScreen() {
         />
       </View>
 
+      <TouchableOpacity>
+        <Text style={styles.forgot}>Forgot Password?</Text>
+      </TouchableOpacity>
+
       <TouchableOpacity style={styles.loginBtn}>
-        <Text style={styles.loginText}>Sign In</Text>
+        <Text style={styles.loginText}>Log In</Text>
       </TouchableOpacity>
 
       <View style={styles.signUpContainer}>
-        <Text style={styles.accountText}>Don't have an account? </Text>
-        <TouchableOpacity onPress={() => router.push("/signup")}>
+        <Text style={styles.accountText}>Already have an Account? </Text>
+        <TouchableOpacity>
           <Text style={styles.switchToSignUp}>Sign Up</Text>
         </TouchableOpacity>
       </View>
@@ -76,16 +78,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 10,
     marginBottom: 12,
-    height: 50,
   },
   icon: {
-    marginRight: 6,
+    marginRight: 8,
   },
   inputWithIcon: {
     flex: 1,
-    height: 48,
-    paddingVertical: 0,
-    fontSize: 16,
+    paddingVertical: 12,
   },
   forgot: {
     textAlign: "right",
