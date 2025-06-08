@@ -6,8 +6,11 @@ import {
   StyleSheet,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { useRouter } from "expo-router";
 
 export default function LoginScreen() {
+  const router = useRouter();
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome Back</Text>
@@ -43,8 +46,8 @@ export default function LoginScreen() {
       </TouchableOpacity>
 
       <View style={styles.signUpContainer}>
-        <Text style={styles.accountText}>Already have an Account? </Text>
-        <TouchableOpacity>
+        <Text style={styles.accountText}>Don't have an Account? </Text>
+        <TouchableOpacity onPress={() => router.push("/signup" as any)}>
           <Text style={styles.switchToSignUp}>Sign Up</Text>
         </TouchableOpacity>
       </View>

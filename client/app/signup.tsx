@@ -6,8 +6,11 @@ import {
   StyleSheet,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { useRouter } from "expo-router";
 
 export default function LoginScreen() {
+  const router = useRouter();
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create An Account</Text>
@@ -67,9 +70,16 @@ export default function LoginScreen() {
         />
       </View>
 
-      <TouchableOpacity style={styles.loginBtn}>
-        <Text style={styles.loginText}>Sign Up</Text>
+      <TouchableOpacity style={styles.signupBtn}>
+        <Text style={styles.signupText}>Sign Up</Text>
       </TouchableOpacity>
+
+      <View style={styles.logInContainer}>
+        <Text style={styles.accountText}>Already have an Account? </Text>
+        <TouchableOpacity onPress={() => router.push("/login" as any)}>
+          <Text style={styles.switchToLogIn}>Log In</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -117,17 +127,17 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     fontWeight: "500",
   },
-  loginBtn: {
+  signupBtn: {
     backgroundColor: "#4E148C",
     padding: 15,
     borderRadius: 15,
     alignItems: "center",
   },
-  loginText: {
+  signupText: {
     color: "#fff",
     fontWeight: "bold",
   },
-  signUpContainer: {
+  logInContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
@@ -136,7 +146,7 @@ const styles = StyleSheet.create({
   accountText: {
     color: "#808080",
   },
-  switchToSignUp: {
+  switchToLogIn: {
     color: "#4E148C",
     fontWeight: "bold",
   },
