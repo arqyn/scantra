@@ -4,6 +4,9 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useRouter } from "expo-router";
@@ -12,82 +15,94 @@ export default function LoginScreen() {
   const router = useRouter();
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Create An Account</Text>
-      <Text style={styles.subtitle}>Sign up to get started</Text>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <View style={styles.container}>
+        <Text style={styles.title}>Create An Account</Text>
+        <Text style={styles.subtitle}>Sign up to get started</Text>
 
-      {/* First Name Input */}
-      <View style={styles.inputContainer}>
-        <Icon name="user" size={20} color="#888" style={styles.icon} />
-        <TextInput
-          placeholder="First Name"
-          placeholderTextColor="#888"
-          style={styles.inputWithIcon}
-        />
-      </View>
+        <ScrollView
+          style={styles.inputScrollContainer}
+          contentContainerStyle={{ paddingBottom: 10 }}
+          keyboardShouldPersistTaps="handled"
+        >
+          {/* First Name Input */}
+          <View style={styles.inputContainer}>
+            <Icon name="user" size={20} color="#888" style={styles.icon} />
+            <TextInput
+              placeholder="First Name"
+              placeholderTextColor="#888"
+              style={styles.inputWithIcon}
+            />
+          </View>
 
-      {/* Last Name Input */}
-      <View style={styles.inputContainer}>
-        <Icon name="user" size={20} color="#888" style={styles.icon} />
-        <TextInput
-          placeholder="Last Name"
-          placeholderTextColor="#888"
-          style={styles.inputWithIcon}
-        />
-      </View>
+          {/* Last Name Input */}
+          <View style={styles.inputContainer}>
+            <Icon name="user" size={20} color="#888" style={styles.icon} />
+            <TextInput
+              placeholder="Last Name"
+              placeholderTextColor="#888"
+              style={styles.inputWithIcon}
+            />
+          </View>
 
-      {/* Email Input */}
-      <View style={styles.inputContainer}>
-        <Icon name="envelope" size={20} color="#888" style={styles.icon} />
-        <TextInput
-          placeholder="Email"
-          placeholderTextColor="#888"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          style={styles.inputWithIcon}
-        />
-      </View>
+          {/* Email Input */}
+          <View style={styles.inputContainer}>
+            <Icon name="envelope" size={20} color="#888" style={styles.icon} />
+            <TextInput
+              placeholder="Email"
+              placeholderTextColor="#888"
+              keyboardType="email-address"
+              autoCapitalize="none"
+              style={styles.inputWithIcon}
+            />
+          </View>
 
-      {/* Password Input */}
-      <View style={styles.inputContainer}>
-        <Icon name="lock" size={20} color="#888" style={styles.icon} />
-        <TextInput
-          placeholder="Password"
-          placeholderTextColor="#888"
-          secureTextEntry
-          style={styles.inputWithIcon}
-        />
-      </View>
+          {/* Password Input */}
+          <View style={styles.inputContainer}>
+            <Icon name="lock" size={20} color="#888" style={styles.icon} />
+            <TextInput
+              placeholder="Password"
+              placeholderTextColor="#888"
+              secureTextEntry
+              style={styles.inputWithIcon}
+            />
+          </View>
 
-      {/* Confirm Password Input */}
-      <View style={styles.inputContainer}>
-        <Icon name="lock" size={20} color="#888" style={styles.icon} />
-        <TextInput
-          placeholder="Confirm Password"
-          placeholderTextColor="#888"
-          secureTextEntry
-          style={styles.inputWithIcon}
-        />
-      </View>
+          {/* Confirm Password Input */}
+          <View style={styles.inputContainer}>
+            <Icon name="lock" size={20} color="#888" style={styles.icon} />
+            <TextInput
+              placeholder="Confirm Password"
+              placeholderTextColor="#888"
+              secureTextEntry
+              style={styles.inputWithIcon}
+            />
+          </View>
+        </ScrollView>
 
-      <TouchableOpacity style={styles.signupBtn}>
-        <Text style={styles.signupText}>Sign Up</Text>
-      </TouchableOpacity>
-
-      <View style={styles.logInContainer}>
-        <Text style={styles.accountText}>Already have an Account? </Text>
-        <TouchableOpacity onPress={() => router.push("/login" as any)}>
-          <Text style={styles.switchToLogIn}>Log In</Text>
+        {/* Sign Up Button */}
+        <TouchableOpacity style={styles.signupBtn}>
+          <Text style={styles.signupText}>Sign Up</Text>
         </TouchableOpacity>
+
+        {/* Log In Switch */}
+        <View style={styles.logInContainer}>
+          <Text style={styles.accountText}>Already have an Account? </Text>
+          <TouchableOpacity onPress={() => router.push("/login" as any)}>
+            <Text style={styles.switchToLogIn}>Log In</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     padding: 24,
     backgroundColor: "#fff",
   },
@@ -95,12 +110,17 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     textAlign: "center",
+    marginTop: 30,
   },
   subtitle: {
     fontSize: 14,
     textAlign: "center",
-    padding: 13,
+    paddingVertical: 13,
     color: "#888",
+  },
+  inputScrollContainer: {
+    flexGrow: 0,
+    maxHeight: 500,
   },
   inputContainer: {
     flexDirection: "row",
@@ -121,17 +141,12 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     fontSize: 16,
   },
-  forgot: {
-    textAlign: "right",
-    color: "#808080",
-    marginBottom: 20,
-    fontWeight: "500",
-  },
   signupBtn: {
     backgroundColor: "#4E148C",
     padding: 15,
     borderRadius: 15,
     alignItems: "center",
+    marginTop: 10,
   },
   signupText: {
     color: "#fff",
