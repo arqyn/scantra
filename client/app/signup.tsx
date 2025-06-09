@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -7,9 +8,13 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useRouter } from "expo-router";
+import { checkPasswordStrength } from "./PasswordStrengthChecker";
 
-export default function LoginScreen() {
+export default function SignUpScreen() {
   const router = useRouter();
+  const [password, setPassword] = useState("");
+
+  const strength = checkPasswordStrength(password);
 
   return (
     <View style={styles.container}>
@@ -56,8 +61,26 @@ export default function LoginScreen() {
           placeholderTextColor="#888"
           secureTextEntry
           style={styles.inputWithIcon}
+          value={password}
+          onChangeText={setPassword}
         />
       </View>
+
+      {/* Password Strength Text */}
+      {password.length > 0 && (
+        <Text
+          style={[
+            styles.passwordStrength,
+            strength === "Weak"
+              ? { color: "red" }
+              : strength === "Medium"
+              ? { color: "orange" }
+              : { color: "green" },
+          ]}
+        >
+          Password Strength: {strength}
+        </Text>
+      )}
 
       {/* Confirm Password Input */}
       <View style={styles.inputContainer}>
@@ -121,11 +144,9 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     fontSize: 16,
   },
-  forgot: {
-    textAlign: "right",
-    color: "#808080",
-    marginBottom: 20,
-    fontWeight: "500",
+  passwordStrength: {
+    marginBottom: 12,
+    fontWeight: "bold",
   },
   signupBtn: {
     backgroundColor: "#4E148C",
