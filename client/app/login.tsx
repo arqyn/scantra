@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -7,21 +8,41 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useRouter } from "expo-router";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/firebase";
 
 export default function LoginScreen() {
   const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  const handleLogin = async () => {
+    try {
+      setError(null);
+      await signInWithEmailAndPassword(auth, email, password);
+      router.push("/home");
+    } catch (err: any) {
+      console.error("Login error:", err.message);
+      setError("Invalid email or password.");
+    }
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome Back</Text>
       <Text style={styles.subtitle}>Log in to continue</Text>
 
-      {/* Username Input with Icon */}
+      {/* Email Input with Icon */}
       <View style={styles.inputContainer}>
-        <Icon name="user" size={20} color="#888" style={styles.icon} />
+        <Icon name="envelope" size={20} color="#888" style={styles.icon} />
         <TextInput
-          placeholder="Username"
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
           placeholderTextColor="#888"
+          keyboardType="email-address"
+          autoCapitalize="none"
           style={styles.inputWithIcon}
         />
       </View>
@@ -31,19 +52,24 @@ export default function LoginScreen() {
         <Icon name="lock" size={20} color="#888" style={styles.icon} />
         <TextInput
           placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
           placeholderTextColor="#888"
           secureTextEntry
           style={styles.inputWithIcon}
         />
       </View>
 
-      <TouchableOpacity style={styles.loginBtn}>
+      {/* Show error message */}
+      {error && <Text style={{ color: "red", marginBottom: 10 }}>{error}</Text>}
+
+      <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
         <Text style={styles.loginText}>Log In</Text>
       </TouchableOpacity>
 
       <View style={styles.signUpContainer}>
         <Text style={styles.accountText}>Don't have an Account? </Text>
-        <TouchableOpacity onPress={() => router.push("/signup" as any)}>
+        <TouchableOpacity onPress={() => router.push("/signup")}>
           <Text style={styles.switchToSignUp}>Sign Up</Text>
         </TouchableOpacity>
       </View>
