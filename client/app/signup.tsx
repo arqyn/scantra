@@ -12,6 +12,8 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useRouter } from "expo-router";
 import { checkPasswordStrength } from "@/utils/PasswordStrengthChecker";
+import { auth } from "@/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 export default function SignUpScreen() {
   const router = useRouter();
@@ -20,6 +22,10 @@ export default function SignUpScreen() {
 
   const strength = checkPasswordStrength(password);
   const passwordsMatch = password === confirmPassword;
+
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
   return (
     <KeyboardAvoidingView
@@ -40,6 +46,8 @@ export default function SignUpScreen() {
             <Icon name="user" size={20} color="#888" style={styles.icon} />
             <TextInput
               placeholder="First Name"
+              value={firstName}
+              onChangeText={setFirstName}
               placeholderTextColor="#888"
               style={styles.inputWithIcon}
             />
@@ -50,6 +58,8 @@ export default function SignUpScreen() {
             <Icon name="user" size={20} color="#888" style={styles.icon} />
             <TextInput
               placeholder="Last Name"
+              value={lastName}
+              onChangeText={setLastName}
               placeholderTextColor="#888"
               style={styles.inputWithIcon}
             />
@@ -60,6 +70,8 @@ export default function SignUpScreen() {
             <Icon name="envelope" size={20} color="#888" style={styles.icon} />
             <TextInput
               placeholder="Email"
+              value={email}
+              onChangeText={setEmail}
               placeholderTextColor="#888"
               keyboardType="email-address"
               autoCapitalize="none"
@@ -118,7 +130,18 @@ export default function SignUpScreen() {
         </ScrollView>
 
         {/* Sign Up Button */}
-        <TouchableOpacity style={styles.signupBtn}>
+        <TouchableOpacity
+          style={styles.signupBtn}
+          onPress={async () => {
+            if (!email || !password || !passwordsMatch) return;
+            try {
+              await createUserWithEmailAndPassword(auth, email, password);
+              router.push("/home" as any);
+            } catch (error: any) {
+              console.error("Signup error:", error.message);
+            }
+          }}
+        >
           <Text style={styles.signupText}>Sign Up</Text>
         </TouchableOpacity>
 
