@@ -21,7 +21,7 @@ export default function LoginScreen() {
     try {
       setError(null);
       await signInWithEmailAndPassword(auth, email, password);
-      router.push("/home");
+      router.push("/home" as any);
     } catch (err: any) {
       console.error("Login error:", err.message);
       setError("Invalid email or password.");
