@@ -8,24 +8,53 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { checkPasswordStrength } from "@/utils/PasswordStrengthChecker";
-import { auth } from "@/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { registerUser } from "../services/authService";
 
 export default function SignUpScreen() {
   const router = useRouter();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const strength = checkPasswordStrength(password);
   const passwordsMatch = password === confirmPassword;
 
-  const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const handleSignUp = async () => {
+    if (!email || !password || !firstName || !lastName) {
+      Alert.alert("Error", "Please fill in all fields");
+      return;
+    }
+
+    if (!passwordsMatch) {
+      Alert.alert("Error", "Passwords do not match");
+      return;
+    }
+
+    if (password.length < 6) {
+      Alert.alert("Error", "Password must be at least 6 characters");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await registerUser(email, password);
+      Alert.alert("Success", "Account created successfully!");
+      router.push("/tabs/home" as any);
+    } catch (error: any) {
+      Alert.alert("Registration Failed", error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -33,6 +62,14 @@ export default function SignUpScreen() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <View style={styles.container}>
+        {/* Back Button */}
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => router.push("/" as any)}
+        >
+          <Ionicons name="arrow-back" size={24} color="#4E148C" />
+        </TouchableOpacity>
+
         <Text style={styles.title}>Create An Account</Text>
         <Text style={styles.subtitle}>Sign up to get started</Text>
 
@@ -131,18 +168,13 @@ export default function SignUpScreen() {
 
         {/* Sign Up Button */}
         <TouchableOpacity
-          style={styles.signupBtn}
-          onPress={async () => {
-            if (!email || !password || !passwordsMatch) return;
-            try {
-              await createUserWithEmailAndPassword(auth, email, password);
-              router.push("/home" as any);
-            } catch (error: any) {
-              console.error("Signup error:", error.message);
-            }
-          }}
+          style={[styles.signupBtn, loading && { opacity: 0.7 }]}
+          onPress={handleSignUp}
+          disabled={loading}
         >
-          <Text style={styles.signupText}>Sign Up</Text>
+          <Text style={styles.signupText}>
+            {loading ? "Creating Account..." : "Sign Up"}
+          </Text>
         </TouchableOpacity>
 
         {/* Log In Switch */}
@@ -160,24 +192,32 @@ export default function SignUpScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "center",
     padding: 24,
     backgroundColor: "#fff",
   },
+  backButton: {
+    position: "absolute",
+    top: 50,
+    left: 20,
+    padding: 10,
+    zIndex: 1,
+  },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: "bold",
     textAlign: "center",
-    marginTop: 30,
+    color: "#4E148C",
+    marginBottom: 8,
   },
   subtitle: {
-    fontSize: 14,
+    fontSize: 16,
     textAlign: "center",
-    paddingVertical: 13,
-    color: "#888",
+    color: "#666",
+    marginBottom: 24,
   },
   inputScrollContainer: {
-    flexGrow: 0,
-    maxHeight: 500,
+    maxHeight: 400,
   },
   inputContainer: {
     flexDirection: "row",
@@ -187,31 +227,30 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 10,
     marginBottom: 12,
-    height: 50,
   },
   icon: {
-    marginRight: 6,
+    marginRight: 8,
   },
   inputWithIcon: {
     flex: 1,
-    height: 48,
-    paddingVertical: 0,
-    fontSize: 16,
+    paddingVertical: 12,
   },
   passwordStrength: {
-    marginBottom: 12,
-    fontWeight: "bold",
+    fontSize: 14,
+    marginBottom: 10,
+    fontWeight: "500",
   },
   signupBtn: {
     backgroundColor: "#4E148C",
     padding: 15,
     borderRadius: 15,
     alignItems: "center",
-    marginTop: 10,
+    marginTop: 20,
   },
   signupText: {
     color: "#fff",
     fontWeight: "bold",
+    fontSize: 16,
   },
   logInContainer: {
     flexDirection: "row",

@@ -1,35 +1,35 @@
-import { Text, View, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function Index() {
   const router = useRouter();
 
   return (
     <View style={styles.container}>
-      <Image
-        source={require("../assets/images/scan-image.png")}
-        style={styles.image}
-        resizeMode="contain"
-      />
+      <View style={styles.header}>
+        <Ionicons name="scan-circle-outline" size={120} color="#4E148C" />
+        <Text style={styles.title}>Recall Scanner</Text>
+        <Text style={styles.subtitle}>
+          Protect your family from recalled products
+        </Text>
+      </View>
 
-      <Text style={styles.title}>
-        Welcome to <Text style={styles.brand}>Recall Scanner</Text>
-      </Text>
-      <Text style={styles.subtitle}>Your Smart Product Recall Assistant</Text>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.loginButton}
+          onPress={() => router.push("/login")}
+        >
+          <Text style={styles.loginButtonText}>Login</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.accountButton}
-        onPress={() => router.push("/login" as any)}
-      >
-        <Text style={styles.accountText}>Log In</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.accountButton}
-        onPress={() => router.push("/signup" as any)}
-      >
-        <Text style={styles.accountText}>Sign Up</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.signupButton}
+          onPress={() => router.push("/signup")}
+        >
+          <Text style={styles.signupButtonText}>Sign Up</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -37,47 +37,51 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 24,
-    alignItems: "center",
-    justifyContent: "center",
     backgroundColor: "#fff",
+    justifyContent: "center",
+    padding: 24,
   },
-  image: {
-    width: 250,
-    height: 250,
-    marginBottom: 32,
+  header: {
+    alignItems: "center",
+    marginBottom: 60,
   },
   title: {
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: "bold",
-    textAlign: "center",
+    color: "#4E148C",
+    marginTop: 20,
     marginBottom: 8,
   },
-  brand: {
-    color: "#4E148C",
-  },
   subtitle: {
-    fontSize: 14,
-    color: "#555",
-    textAlign: "center",
-    marginBottom: 20,
-  },
-  accountButton: {
-    backgroundColor: "#4E148C",
-    paddingVertical: 14,
-    width: "100%",
-    maxWidth: 300,
-    alignItems: "center",
-    borderRadius: 30,
-    shadowColor: "#000",
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 4,
-    margin: 8,
-  },
-  accountText: {
-    color: "#fff",
     fontSize: 16,
-    fontWeight: "bold",
+    color: "#666",
+    textAlign: "center",
+  },
+  buttonContainer: {
+    gap: 16,
+  },
+  loginButton: {
+    backgroundColor: "#4E148C",
+    padding: 16,
+    borderRadius: 12,
+    alignItems: "center",
+  },
+  loginButtonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "600",
+  },
+  signupButton: {
+    backgroundColor: "transparent",
+    padding: 16,
+    borderRadius: 12,
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: "#4E148C",
+  },
+  signupButtonText: {
+    color: "#4E148C",
+    fontSize: 18,
+    fontWeight: "600",
   },
 });

@@ -5,45 +5,61 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/firebase";
+import { loginUser } from "../services/authService";
 
 export default function LoginScreen() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert("Error", "Please fill in all fields");
+      return;
+    }
+
+    setLoading(true);
     try {
-      setError(null);
-      await signInWithEmailAndPassword(auth, email, password);
-      router.push("/home" as any);
-    } catch (err: any) {
-      console.error("Login error:", err.message);
-      setError("Invalid email or password.");
+      await loginUser(email, password);
+      Alert.alert("Success", "Logged in successfully!");
+      router.push("/tabs/home" as any);
+    } catch (error: any) {
+      Alert.alert("Login Failed", error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <View style={styles.container}>
+      {/* Back Button */}
+      <TouchableOpacity
+        style={styles.backButton}
+        onPress={() => router.push("/" as any)}
+      >
+        <Ionicons name="arrow-back" size={24} color="#4E148C" />
+      </TouchableOpacity>
+
       <Text style={styles.title}>Welcome Back</Text>
       <Text style={styles.subtitle}>Log in to continue</Text>
 
       {/* Email Input with Icon */}
       <View style={styles.inputContainer}>
-        <Icon name="envelope" size={20} color="#888" style={styles.icon} />
+        <Icon name="envelope" size={18} color="#888" style={styles.icon} />
         <TextInput
           placeholder="Email"
+          placeholderTextColor="#888"
+          style={styles.inputWithIcon}
           value={email}
           onChangeText={setEmail}
-          placeholderTextColor="#888"
           keyboardType="email-address"
           autoCapitalize="none"
-          style={styles.inputWithIcon}
         />
       </View>
 
@@ -52,24 +68,29 @@ export default function LoginScreen() {
         <Icon name="lock" size={20} color="#888" style={styles.icon} />
         <TextInput
           placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
           placeholderTextColor="#888"
           secureTextEntry
           style={styles.inputWithIcon}
+          value={password}
+          onChangeText={setPassword}
         />
       </View>
 
-      {/* Show error message */}
-      {error && <Text style={{ color: "red", marginBottom: 10 }}>{error}</Text>}
+      <Text style={styles.forgot}>Forgot Password?</Text>
 
-      <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
-        <Text style={styles.loginText}>Log In</Text>
+      <TouchableOpacity
+        style={[styles.loginBtn, loading && { opacity: 0.7 }]}
+        onPress={handleLogin}
+        disabled={loading}
+      >
+        <Text style={styles.loginText}>
+          {loading ? "Logging in..." : "Log In"}
+        </Text>
       </TouchableOpacity>
 
       <View style={styles.signUpContainer}>
         <Text style={styles.accountText}>Don't have an Account? </Text>
-        <TouchableOpacity onPress={() => router.push("/signup")}>
+        <TouchableOpacity onPress={() => router.push("/signup" as any)}>
           <Text style={styles.switchToSignUp}>Sign Up</Text>
         </TouchableOpacity>
       </View>
@@ -83,6 +104,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 24,
     backgroundColor: "#fff",
+  },
+  backButton: {
+    position: "absolute",
+    top: 50,
+    left: 20,
+    padding: 10,
+    zIndex: 1,
   },
   title: {
     fontSize: 24,
