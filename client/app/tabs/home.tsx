@@ -24,7 +24,7 @@ export default function HomeScreen() {
           </Text>
           <TouchableOpacity
             style={styles.featureButton}
-            onPress={() => router.push("/tabs/scanner" as any)}
+            onPress={() => router.push("/tabs/scanner")}
           >
             <Text style={styles.featureButtonText}>Start Scanning</Text>
           </TouchableOpacity>

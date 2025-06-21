@@ -48,7 +48,7 @@ export default function SignUpScreen() {
     try {
       await registerUser(email, password);
       Alert.alert("Success", "Account created successfully!");
-      router.push("/tabs/home" as any);
+      router.push("/tabs/home");
     } catch (error: any) {
       Alert.alert("Registration Failed", error.message);
     } finally {
@@ -65,7 +65,7 @@ export default function SignUpScreen() {
         {/* Back Button */}
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => router.push("/" as any)}
+          onPress={() => router.push("/")}
         >
           <Ionicons name="arrow-back" size={24} color="#4E148C" />
         </TouchableOpacity>
@@ -180,7 +180,7 @@ export default function SignUpScreen() {
         {/* Log In Switch */}
         <View style={styles.logInContainer}>
           <Text style={styles.accountText}>Already have an Account? </Text>
-          <TouchableOpacity onPress={() => router.push("/login" as any)}>
+          <TouchableOpacity onPress={() => router.push("/login")}>
             <Text style={styles.switchToLogIn}>Log In</Text>
           </TouchableOpacity>
         </View>

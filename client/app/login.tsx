@@ -28,7 +28,7 @@ export default function LoginScreen() {
     try {
       await loginUser(email, password);
       Alert.alert("Success", "Logged in successfully!");
-      router.push("/tabs/home" as any);
+      router.push("/tabs/home");
     } catch (error: any) {
       Alert.alert("Login Failed", error.message);
     } finally {
@@ -41,7 +41,7 @@ export default function LoginScreen() {
       {/* Back Button */}
       <TouchableOpacity
         style={styles.backButton}
-        onPress={() => router.push("/" as any)}
+        onPress={() => router.push("/")}
       >
         <Ionicons name="arrow-back" size={24} color="#4E148C" />
       </TouchableOpacity>
@@ -90,7 +90,7 @@ export default function LoginScreen() {
 
       <View style={styles.signUpContainer}>
         <Text style={styles.accountText}>Don't have an Account? </Text>
-        <TouchableOpacity onPress={() => router.push("/signup" as any)}>
+        <TouchableOpacity onPress={() => router.push("/signup")}>
           <Text style={styles.switchToSignUp}>Sign Up</Text>
         </TouchableOpacity>
       </View>
