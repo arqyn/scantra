@@ -31,8 +31,9 @@ export default function ScannerScreen() {
   };
 
   const pickImageFromLibrary = async () => {
-    const hasPermission = await requestPermissions();
-    if (!hasPermission) return;
+    if (!(await requestPermissions())) {
+      return;
+    }
 
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
