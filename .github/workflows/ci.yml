@@ -7,8 +7,12 @@ on:
     branches: [main]
 
 jobs:
-  server-check:
+  type-check:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        project: [client, server]
 
     steps:
       - name: Checkout code
@@ -18,34 +22,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: "npm"
+          cache: 'npm'
 
       - name: Install dependencies
+        working-directory: ./${{ matrix.project }}
         run: npm install
 
-      - name: Server TypeScript Check
-        working-directory: ./server
-        run: |
-          npx tsc --noEmit
-
-  client-check:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: "npm"
-
-      - name: Install client dependencies
-        working-directory: ./client
-        run: npm install
-
-      - name: Client TypeScript Check
-        working-directory: ./client
-        run: |
-          npx tsc --noEmit
+      - name: TypeScript Check
+        working-directory: ./${{ matrix.project }}
+        run: npx tsc --noEmit
