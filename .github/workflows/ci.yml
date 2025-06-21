@@ -8,6 +8,7 @@ on:
 
 jobs:
   type-check:
+    name: TypeScript Check - ${{ matrix.project }}
     runs-on: ubuntu-latest
 
     strategy:
@@ -18,16 +19,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Cache node_modules for ${{ matrix.project }}
+        uses: actions/cache@v3
+        with:
+          path: ${{ matrix.project }}/node_modules
+          key: ${{ runner.os }}-npm-${{ matrix.project }}-${{ hashFiles(format('{0}/package-lock.json', matrix.project)) }}
+          restore-keys: |
+            ${{ runner.os }}-npm-${{ matrix.project }}-
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install dependencies for ${{ matrix.project }}
         working-directory: ./${{ matrix.project }}
-        run: npm install
+        run: npm ci
 
-      - name: TypeScript Check
+      - name: Run TypeScript Check for ${{ matrix.project }}
         working-directory: ./${{ matrix.project }}
         run: npx tsc --noEmit
