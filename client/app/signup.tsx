@@ -4,7 +4,6 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
   ScrollView,
   KeyboardAvoidingView,
   Platform,
@@ -15,6 +14,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { checkPasswordStrength } from "@/utils/PasswordStrengthChecker";
 import { registerUser } from "../services/authService";
+import { signupStyles as styles } from "@/styles/signupStyles";
 
 export default function SignUpScreen() {
   const router = useRouter();
@@ -61,50 +61,65 @@ export default function SignUpScreen() {
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <View style={styles.container}>
+      <View style={styles.signup}>
         {/* Back Button */}
         <TouchableOpacity
-          style={styles.backButton}
+          style={styles.signup__backButton}
           onPress={() => router.push("/")}
         >
           <Ionicons name="arrow-back" size={24} color="#4E148C" />
         </TouchableOpacity>
 
-        <Text style={styles.title}>Create An Account</Text>
-        <Text style={styles.subtitle}>Sign up to get started</Text>
+        <Text style={styles.signup__title}>Create An Account</Text>
+        <Text style={styles.signup__subtitle}>Sign up to get started</Text>
 
         <ScrollView
-          style={styles.inputScrollContainer}
+          style={styles.signup__inputScrollContainer}
           contentContainerStyle={{ paddingBottom: 10 }}
           keyboardShouldPersistTaps="handled"
         >
           {/* First Name Input */}
-          <View style={styles.inputContainer}>
-            <Icon name="user" size={20} color="#888" style={styles.icon} />
+          <View style={styles.signup__inputContainer}>
+            <Icon
+              name="user"
+              size={20}
+              color="#888"
+              style={styles.signup__icon}
+            />
             <TextInput
               placeholder="First Name"
               value={firstName}
               onChangeText={setFirstName}
               placeholderTextColor="#888"
-              style={styles.inputWithIcon}
+              style={styles.signup__inputWithIcon}
             />
           </View>
 
           {/* Last Name Input */}
-          <View style={styles.inputContainer}>
-            <Icon name="user" size={20} color="#888" style={styles.icon} />
+          <View style={styles.signup__inputContainer}>
+            <Icon
+              name="user"
+              size={20}
+              color="#888"
+              style={styles.signup__icon}
+            />
             <TextInput
               placeholder="Last Name"
               value={lastName}
               onChangeText={setLastName}
               placeholderTextColor="#888"
-              style={styles.inputWithIcon}
+              style={styles.signup__inputWithIcon}
             />
           </View>
 
           {/* Email Input */}
-          <View style={styles.inputContainer}>
-            <Icon name="envelope" size={20} color="#888" style={styles.icon} />
+          <View style={styles.signup__inputContainer}>
+            <Icon
+              name="envelope"
+              size={20}
+              color="#888"
+              style={styles.signup__icon}
+            />
             <TextInput
               placeholder="Email"
               value={email}
@@ -112,18 +127,23 @@ export default function SignUpScreen() {
               placeholderTextColor="#888"
               keyboardType="email-address"
               autoCapitalize="none"
-              style={styles.inputWithIcon}
+              style={styles.signup__inputWithIcon}
             />
           </View>
 
           {/* Password Input */}
-          <View style={styles.inputContainer}>
-            <Icon name="lock" size={20} color="#888" style={styles.icon} />
+          <View style={styles.signup__inputContainer}>
+            <Icon
+              name="lock"
+              size={20}
+              color="#888"
+              style={styles.signup__icon}
+            />
             <TextInput
               placeholder="Password"
               placeholderTextColor="#888"
               secureTextEntry
-              style={styles.inputWithIcon}
+              style={styles.signup__inputWithIcon}
               value={password}
               onChangeText={setPassword}
             />
@@ -133,7 +153,7 @@ export default function SignUpScreen() {
           {password.length > 0 && (
             <Text
               style={[
-                styles.passwordStrength,
+                styles.signup__passwordStrength,
                 strength === "Weak"
                   ? { color: "red" }
                   : strength === "Medium"
@@ -146,13 +166,18 @@ export default function SignUpScreen() {
           )}
 
           {/* Confirm Password Input */}
-          <View style={styles.inputContainer}>
-            <Icon name="lock" size={20} color="#888" style={styles.icon} />
+          <View style={styles.signup__inputContainer}>
+            <Icon
+              name="lock"
+              size={20}
+              color="#888"
+              style={styles.signup__icon}
+            />
             <TextInput
               placeholder="Confirm Password"
               placeholderTextColor="#888"
               secureTextEntry
-              style={styles.inputWithIcon}
+              style={styles.signup__inputWithIcon}
               value={confirmPassword}
               onChangeText={setConfirmPassword}
             />
@@ -168,101 +193,25 @@ export default function SignUpScreen() {
 
         {/* Sign Up Button */}
         <TouchableOpacity
-          style={[styles.signupBtn, loading && { opacity: 0.7 }]}
+          style={[styles.signup__signupBtn, loading && { opacity: 0.7 }]}
           onPress={handleSignUp}
           disabled={loading}
         >
-          <Text style={styles.signupText}>
+          <Text style={styles.signup__signupText}>
             {loading ? "Creating Account..." : "Sign Up"}
           </Text>
         </TouchableOpacity>
 
         {/* Log In Switch */}
-        <View style={styles.logInContainer}>
-          <Text style={styles.accountText}>Already have an Account? </Text>
+        <View style={styles.signup__logInContainer}>
+          <Text style={styles.signup__accountText}>
+            Already have an Account?{" "}
+          </Text>
           <TouchableOpacity onPress={() => router.push("/login")}>
-            <Text style={styles.switchToLogIn}>Log In</Text>
+            <Text style={styles.signup__switchToLogIn}>Log In</Text>
           </TouchableOpacity>
         </View>
       </View>
     </KeyboardAvoidingView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 24,
-    backgroundColor: "#fff",
-  },
-  backButton: {
-    position: "absolute",
-    top: 50,
-    left: 20,
-    padding: 10,
-    zIndex: 1,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: "bold",
-    textAlign: "center",
-    color: "#4E148C",
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    textAlign: "center",
-    color: "#666",
-    marginBottom: 24,
-  },
-  inputScrollContainer: {
-    maxHeight: 400,
-  },
-  inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    marginBottom: 12,
-  },
-  icon: {
-    marginRight: 8,
-  },
-  inputWithIcon: {
-    flex: 1,
-    paddingVertical: 12,
-  },
-  passwordStrength: {
-    fontSize: 14,
-    marginBottom: 10,
-    fontWeight: "500",
-  },
-  signupBtn: {
-    backgroundColor: "#4E148C",
-    padding: 15,
-    borderRadius: 15,
-    alignItems: "center",
-    marginTop: 20,
-  },
-  signupText: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 16,
-  },
-  logInContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 20,
-  },
-  accountText: {
-    color: "#808080",
-  },
-  switchToLogIn: {
-    color: "#4E148C",
-    fontWeight: "bold",
-  },
-});

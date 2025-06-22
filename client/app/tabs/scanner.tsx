@@ -1,15 +1,9 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Alert,
-  Image,
-} from "react-native";
+import { View, Text, TouchableOpacity, Alert, Image } from "react-native";
 import { useRouter } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
+import { scannerStyles as styles } from "@/styles/scannerStyles";
 
 export default function ScannerScreen() {
   const router = useRouter();
@@ -96,175 +90,77 @@ export default function ScannerScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Receipt Scanner</Text>
-      <Text style={styles.subtitle}>
+    <View style={styles.scanner}>
+      <Text style={styles.scanner__title}>Receipt Scanner</Text>
+      <Text style={styles.scanner__subtitle}>
         Scan your receipts to check for recalled products
       </Text>
 
       {selectedImage ? (
-        <View style={styles.imageContainer}>
-          <Image source={{ uri: selectedImage }} style={styles.receiptImage} />
+        <View style={styles.scanner__imageContainer}>
+          <Image
+            source={{ uri: selectedImage }}
+            style={styles.scanner__receiptImage}
+          />
           <TouchableOpacity
-            style={styles.removeButton}
+            style={styles.scanner__removeButton}
             onPress={() => setSelectedImage(null)}
           >
             <Ionicons name="close-circle" size={30} color="#FF6B6B" />
           </TouchableOpacity>
         </View>
       ) : (
-        <View style={styles.uploadArea}>
+        <View style={styles.scanner__uploadArea}>
           <Ionicons name="receipt-outline" size={80} color="#ccc" />
-          <Text style={styles.uploadText}>No receipt selected</Text>
+          <Text style={styles.scanner__uploadText}>No receipt selected</Text>
         </View>
       )}
 
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.actionButton} onPress={takePhoto}>
+      <View style={styles.scanner__buttonContainer}>
+        <TouchableOpacity
+          style={styles.scanner__actionButton}
+          onPress={takePhoto}
+        >
           <Ionicons name="camera" size={24} color="#fff" />
-          <Text style={styles.buttonText}>Take Photo</Text>
+          <Text style={styles.scanner__buttonText}>Take Photo</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={styles.actionButton}
+          style={styles.scanner__actionButton}
           onPress={pickImageFromLibrary}
         >
           <Ionicons name="images" size={24} color="#fff" />
-          <Text style={styles.buttonText}>Choose from Library</Text>
+          <Text style={styles.scanner__buttonText}>Choose from Library</Text>
         </TouchableOpacity>
       </View>
 
       {selectedImage && (
         <TouchableOpacity
           style={[
-            styles.processButton,
-            isProcessing && styles.processingButton,
+            styles.scanner__processButton,
+            isProcessing && styles.scanner__processingButton,
           ]}
           onPress={processReceipt}
           disabled={isProcessing}
         >
-          <Text style={styles.processButtonText}>
+          <Text style={styles.scanner__processButtonText}>
             {isProcessing ? "Processing..." : "Scan for Recalls"}
           </Text>
         </TouchableOpacity>
       )}
 
-      <View style={styles.infoContainer}>
-        <Text style={styles.infoTitle}>How it works:</Text>
-        <Text style={styles.infoText}>
+      <View style={styles.scanner__infoContainer}>
+        <Text style={styles.scanner__infoTitle}>How it works:</Text>
+        <Text style={styles.scanner__infoText}>
           🟡 Company recall - Some recalls from this company
         </Text>
-        <Text style={styles.infoText}>
+        <Text style={styles.scanner__infoText}>
           🟠 Related product - Similar products recalled
         </Text>
-        <Text style={styles.infoText}>
+        <Text style={styles.scanner__infoText}>
           🔴 Exact match - This product is recalled!
         </Text>
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: "#fff",
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 8,
-    color: "#4E148C",
-  },
-  subtitle: {
-    fontSize: 16,
-    textAlign: "center",
-    color: "#666",
-    marginBottom: 30,
-  },
-  imageContainer: {
-    position: "relative",
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  receiptImage: {
-    width: 250,
-    height: 300,
-    borderRadius: 12,
-    borderWidth: 2,
-    borderColor: "#4E148C",
-  },
-  removeButton: {
-    position: "absolute",
-    top: -10,
-    right: 50,
-  },
-  uploadArea: {
-    height: 250,
-    borderWidth: 2,
-    borderColor: "#ddd",
-    borderStyle: "dashed",
-    borderRadius: 12,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  uploadText: {
-    marginTop: 10,
-    fontSize: 16,
-    color: "#ccc",
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginBottom: 20,
-  },
-  actionButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#4E148C",
-    padding: 12,
-    borderRadius: 10,
-    minWidth: 140,
-    justifyContent: "center",
-  },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "600",
-    marginLeft: 8,
-  },
-  processButton: {
-    backgroundColor: "#28A745",
-    padding: 15,
-    borderRadius: 12,
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  processingButton: {
-    backgroundColor: "#6C757D",
-  },
-  processButtonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  infoContainer: {
-    backgroundColor: "#F8F9FA",
-    padding: 15,
-    borderRadius: 10,
-    marginTop: "auto",
-  },
-  infoTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginBottom: 8,
-    color: "#333",
-  },
-  infoText: {
-    fontSize: 14,
-    color: "#555",
-    marginBottom: 4,
-  },
-});
