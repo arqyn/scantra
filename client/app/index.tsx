@@ -6,28 +6,28 @@ export default function Index() {
   const router = useRouter();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
+    <View style={styles.welcomePage}>
+      <View style={styles.welcomePage__header}>
         <Ionicons name="scan-circle-outline" size={120} color="#4E148C" />
-        <Text style={styles.title}>Recall Scanner</Text>
-        <Text style={styles.subtitle}>
+        <Text style={styles.welcomePage__title}>Recall Scanner</Text>
+        <Text style={styles.welcomePage__subtitle}>
           Protect your family from recalled products
         </Text>
       </View>
 
-      <View style={styles.buttonContainer}>
+      <View style={styles.welcomePage__buttonContainer}>
         <TouchableOpacity
-          style={styles.loginButton}
+          style={styles.button__primary}
           onPress={() => router.push("/login")}
         >
-          <Text style={styles.loginButtonText}>Login</Text>
+          <Text style={styles.button__primaryText}>Login</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={styles.signupButton}
+          style={styles.button__secondary}
           onPress={() => router.push("/signup")}
         >
-          <Text style={styles.signupButtonText}>Sign Up</Text>
+          <Text style={styles.button__secondaryText}>Sign Up</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -35,43 +35,43 @@ export default function Index() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  welcomePage: {
     flex: 1,
     backgroundColor: "#fff",
     justifyContent: "center",
     padding: 24,
   },
-  header: {
+  welcomePage__header: {
     alignItems: "center",
     marginBottom: 60,
   },
-  title: {
+  welcomePage__title: {
     fontSize: 32,
     fontWeight: "bold",
     color: "#4E148C",
     marginTop: 20,
     marginBottom: 8,
   },
-  subtitle: {
+  welcomePage__subtitle: {
     fontSize: 16,
     color: "#666",
     textAlign: "center",
   },
-  buttonContainer: {
+  welcomePage__buttonContainer: {
     gap: 16,
   },
-  loginButton: {
+  button__primary: {
     backgroundColor: "#4E148C",
     padding: 16,
     borderRadius: 12,
     alignItems: "center",
   },
-  loginButtonText: {
+  button__primaryText: {
     color: "#fff",
     fontSize: 18,
     fontWeight: "600",
   },
-  signupButton: {
+  button__secondary: {
     backgroundColor: "transparent",
     padding: 16,
     borderRadius: 12,
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#4E148C",
   },
-  signupButtonText: {
+  button__secondaryText: {
     color: "#4E148C",
     fontSize: 18,
     fontWeight: "600",
