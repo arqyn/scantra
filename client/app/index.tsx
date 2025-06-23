@@ -1,7 +1,7 @@
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { welcomePageStyles as styles } from "@/styles/welcomePageStyles";
+import { welcomePageStyles as styles } from "@/styles/welcomePage";
 
 export default function Index() {
   const router = useRouter();

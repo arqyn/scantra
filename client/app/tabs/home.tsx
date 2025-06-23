@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { homeStyles as styles } from "@/styles/homeStyles";
+import { homeStyles as styles } from "@/styles/home";
 
 export default function HomeScreen() {
   const router = useRouter();

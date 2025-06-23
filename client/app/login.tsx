@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { loginUser } from "../services/authService";
-import { loginStyles as styles } from "@/styles/loginStyles";
+import { loginStyles as styles } from "@/styles/login";
 
 export default function LoginScreen() {
   const router = useRouter();

@@ -14,7 +14,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { checkPasswordStrength } from "@/utils/PasswordStrengthChecker";
 import { registerUser } from "../services/authService";
-import { signupStyles as styles } from "@/styles/signupStyles";
+import { signupStyles as styles } from "@/styles/signup";
 
 export default function SignUpScreen() {
   const router = useRouter();
