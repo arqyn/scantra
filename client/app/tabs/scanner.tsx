@@ -10,7 +10,7 @@ export default function ScannerScreen() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const requestPermissions = async () => {
+  const tryGetMediaLibraryPermissions = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     const isGranted = status !== "granted";
 
@@ -25,7 +25,7 @@ export default function ScannerScreen() {
   };
 
   const pickImageFromLibrary = async () => {
-    if (!(await requestPermissions())) {
+    if (!(await tryGetMediaLibraryPermissions())) {
       return;
     }
 
