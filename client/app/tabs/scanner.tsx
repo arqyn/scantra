@@ -12,9 +12,9 @@ export default function ScannerScreen() {
 
   const tryGetMediaLibraryPermissions = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    const isGranted = status !== "granted";
+    const isGranted = status === "granted";
 
-    if (isGranted) {
+    if (!isGranted) {
       Alert.alert(
         "Permission Required",
         "Sorry, we need camera roll permissions to scan receipts!"
