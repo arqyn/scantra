@@ -43,13 +43,21 @@ export default function ScannerScreen() {
 
   const tryGetCameraPermission = async () => {
     const { status } = await ImagePicker.requestCameraPermissionsAsync();
+
     if (status !== "granted") {
       Alert.alert(
         "Permission Required",
         "Sorry, we need camera permissions to take photos!"
       );
-      return;
+      return false;
     }
+
+    return true;
+  };
+
+  const takePhoto = async () => {
+    const hasPermission = await tryGetCameraPermission();
+    if (!hasPermission) return;
 
     const result = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
@@ -119,7 +127,7 @@ export default function ScannerScreen() {
       <View style={styles.scanner__buttonContainer}>
         <TouchableOpacity
           style={styles.scanner__actionButton}
-          onPress={tryGetCameraPermission}
+          onPress={takePhoto}
         >
           <Ionicons name="camera" size={24} color="#fff" />
           <Text style={styles.scanner__buttonText}>Take Photo</Text>
