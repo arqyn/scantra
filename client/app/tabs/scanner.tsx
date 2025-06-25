@@ -4,6 +4,7 @@ import { useRouter } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
 import { scannerStyles as styles } from "@/styles/scanner";
+import { RECEIPT_LIBRARY_OPTIONS } from "@/utils/ImagePickerOptions";
 
 export default function ScannerScreen() {
   const router = useRouter();
@@ -59,11 +60,7 @@ export default function ScannerScreen() {
     const hasPermission = await tryGetCameraPermission();
     if (!hasPermission) return;
 
-    const result = await ImagePicker.launchCameraAsync({
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
+    const result = await ImagePicker.launchCameraAsync(RECEIPT_LIBRARY_OPTIONS);
 
     if (!result.canceled) {
       setSelectedImage(result.assets[0].uri);
