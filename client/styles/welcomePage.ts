@@ -13,6 +13,7 @@ export const welcomePageStyles = StyleSheet.create({
     backgroundColor: colors.white,
     justifyContent: "center",
     padding: spacing.xxl,
+    height: 100,
   },
   welcomePage__header: {
     alignItems: "center",
