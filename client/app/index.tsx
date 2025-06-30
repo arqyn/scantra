@@ -1,83 +1,36 @@
-import { Text, View, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
+import { welcomePageStyles as styles } from "@/styles/welcomePage";
 
 export default function Index() {
   const router = useRouter();
 
   return (
-    <View style={styles.container}>
-      <Image
-        source={require("../assets/images/scan-image.png")}
-        style={styles.image}
-        resizeMode="contain"
-      />
+    <View style={styles.welcomePage}>
+      <View style={styles.welcomePage__header}>
+        <Ionicons name="scan-circle-outline" size={120} color="#4E148C" />
+        <Text style={styles.welcomePage__title}>Recall Scanner</Text>
+        <Text style={styles.welcomePage__subtitle}>
+          Protect your family from recalled products
+        </Text>
+      </View>
 
-      <Text style={styles.title}>
-        Welcome to <Text style={styles.brand}>Recall Scanner</Text>
-      </Text>
-      <Text style={styles.subtitle}>Your Smart Product Recall Assistant</Text>
+      <View style={styles.welcomePage__buttonContainer}>
+        <TouchableOpacity
+          style={styles.button__primary}
+          onPress={() => router.push("/login")}
+        >
+          <Text style={styles.button__primaryText}>Login</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.accountButton}
-        onPress={() => router.push("/login" as any)}
-      >
-        <Text style={styles.accountText}>Log In</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.accountButton}
-        onPress={() => router.push("/signup" as any)}
-      >
-        <Text style={styles.accountText}>Sign Up</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button__secondary}
+          onPress={() => router.push("/signup")}
+        >
+          <Text style={styles.button__secondaryText}>Sign Up</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#fff",
-  },
-  image: {
-    width: 250,
-    height: 250,
-    marginBottom: 32,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 8,
-  },
-  brand: {
-    color: "#4E148C",
-  },
-  subtitle: {
-    fontSize: 14,
-    color: "#555",
-    textAlign: "center",
-    marginBottom: 20,
-  },
-  accountButton: {
-    backgroundColor: "#4E148C",
-    paddingVertical: 14,
-    width: "100%",
-    maxWidth: 300,
-    alignItems: "center",
-    borderRadius: 30,
-    shadowColor: "#000",
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 4,
-    margin: 8,
-  },
-  accountText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-});
