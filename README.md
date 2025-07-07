@@ -23,7 +23,7 @@ Recall Scanner allows users to scan their store receipts (paper or email) and au
 1. Clone the repository
 
    ```
-   git clone https://github.com/soapx/Recall-Scanner.git
+   git clone https://github.com/arqyn/recall-scanner.git
    cd recall-scanner
    ```
 
