@@ -5,7 +5,6 @@ import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
 import { scannerStyles as styles } from "@/styles/scanner";
 import { RECEIPT_LIBRARY_OPTIONS } from "@/utils/ImagePickerOptions";
-
 export default function ScannerScreen() {
   const router = useRouter();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -75,23 +74,43 @@ export default function ScannerScreen() {
 
     setIsProcessing(true);
 
-    // Simulate processing time
-    setTimeout(() => {
-      setIsProcessing(false);
-      Alert.alert(
-        "Processing Complete",
-        "Receipt scanned successfully! No recalls found for your items.",
-        [
-          {
-            text: "OK",
-            onPress: () => {
-              // Navigate to results or reset
-              setSelectedImage(null);
-            },
-          },
-        ]
+    try {
+      const formData = new FormData();
+      formData.append("receipt", {
+        uri: selectedImage,
+        name: "receipt.jpg",
+        type: "image/jpeg",
+      } as any);
+
+      const response = await fetch(
+        "http://localhost:3000/api/scanner/recalls",
+        {
+          method: "POST",
+          body: formData,
+        }
       );
-    }, 3000);
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to scan the receipt.");
+      }
+
+      const data = await response.json();
+
+      Alert.alert("Scan Complete", data.summary || "No recalled items found.", [
+        {
+          text: "OK",
+          onPress: () => {
+            setSelectedImage(null);
+          },
+        },
+      ]);
+    } catch (error: any) {
+      console.error("Error:", error);
+      Alert.alert("Error", error.message || "Failed to scan the receipt.");
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   return (
