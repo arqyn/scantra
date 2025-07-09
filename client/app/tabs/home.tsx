@@ -3,9 +3,11 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { homeStyles as styles } from "@/styles/home";
+import { useStats } from "@/hooks/useStats";
 
 export default function HomeScreen() {
   const router = useRouter();
+  const { receiptsScanned, alertsFound } = useStats();
 
   return (
     <View style={styles.home}>
@@ -33,11 +35,11 @@ export default function HomeScreen() {
 
         <View style={styles.home__statsContainer}>
           <View style={styles.home__statCard}>
-            <Text style={styles.home__statNumber}>0</Text>
+            <Text style={styles.home__statNumber}>{receiptsScanned}</Text>
             <Text style={styles.home__statLabel}>Receipts Scanned</Text>
           </View>
           <View style={styles.home__statCard}>
-            <Text style={styles.home__statNumber}>0</Text>
+            <Text style={styles.home__statNumber}>{alertsFound}</Text>
             <Text style={styles.home__statLabel}>Alerts Found</Text>
           </View>
         </View>

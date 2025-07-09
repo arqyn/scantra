@@ -5,10 +5,13 @@ import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
 import { scannerStyles as styles } from "@/styles/scanner";
 import { RECEIPT_LIBRARY_OPTIONS } from "@/utils/ImagePickerOptions";
+import { useStats } from "@/hooks/useStats";
+
 export default function ScannerScreen() {
   const router = useRouter();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const { incrementReceiptsScanned, incrementAlertsFound } = useStats();
 
   const tryGetMediaLibraryPermissions = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -96,6 +99,11 @@ export default function ScannerScreen() {
       }
 
       const data = await response.json();
+
+      incrementReceiptsScanned();
+      if (Array.isArray(data.alerts) && data.alerts.length > 0) {
+        incrementAlertsFound(data.alerts.length);
+      }
 
       Alert.alert("Scan Complete", data.summary || "No recalled items found.", [
         {
