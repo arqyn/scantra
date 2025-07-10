@@ -99,13 +99,14 @@ export default function ScannerScreen() {
       }
 
       const data = await response.json();
+      data.summary = data.summary || "No recalled items found.";
 
       incrementReceiptsScanned(1);
       if (Array.isArray(data.alerts) && data.alerts.length > 0) {
         incrementAlertsFound(data.alerts.length);
       }
 
-      Alert.alert("Scan Complete", data.summary || "No recalled items found.", [
+      Alert.alert("Scan Complete", data.summary, [
         {
           text: "OK",
           onPress: () => {
