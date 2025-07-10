@@ -9,7 +9,7 @@ export const StatsProvider = ({ children }: { children: ReactNode }) => {
   const [receiptsScanned, setReceiptsScanned] = useState(0);
   const [alertsFound, setAlertsFound] = useState(0);
 
-  const incrementReceiptsScanned = () => setReceiptsScanned(prev => prev + 1);
+  const incrementReceiptsScanned = (count: number) => setReceiptsScanned(prev => prev + count);
   const incrementAlertsFound = (count: number) =>
     setAlertsFound(prev => prev + count);
 
