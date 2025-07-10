@@ -100,7 +100,7 @@ export default function ScannerScreen() {
 
       const data = await response.json();
 
-      incrementReceiptsScanned();
+      incrementReceiptsScanned(1);
       if (Array.isArray(data.alerts) && data.alerts.length > 0) {
         incrementAlertsFound(data.alerts.length);
       }
