@@ -75,8 +75,6 @@ export default function LoginScreen() {
         />
       </View>
 
-      <Text style={styles.login__forgot}>Forgot Password?</Text>
-
       <TouchableOpacity
         style={[styles.login__loginBtn, loading && { opacity: 0.7 }]}
         onPress={handleLogin}

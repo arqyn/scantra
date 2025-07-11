@@ -10,7 +10,7 @@ export default function Index() {
     <View style={styles.welcomePage}>
       <View style={styles.welcomePage__header}>
         <Ionicons name="scan-circle-outline" size={120} color="#4E148C" />
-        <Text style={styles.welcomePage__title}>Recall Scanner</Text>
+        <Text style={styles.welcomePage__title}>Scantra</Text>
         <Text style={styles.welcomePage__subtitle}>
           Protect your family from recalled products
         </Text>
