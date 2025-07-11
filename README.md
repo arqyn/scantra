@@ -1,10 +1,10 @@
-# Recall Scanner
+# Scantra
 
 A mobile application that helps users identify potentially recalled products from their store receipts.
 
 ## Overview
 
-Recall Scanner allows users to scan their store receipts (paper or email) and automatically checks the products and companies against FDA recall data. If a match is found, users receive an instant alert with color-coded urgency:
+Scantra allows users to scan their store receipts (paper or email) and automatically checks the products and companies against FDA recall data. If a match is found, users receive an instant alert with color-coded urgency:
 
 - 🟡 **Company recall** - The company has issued some recalls
 - 🟠 **Related Product flagged** - Similar products from this company have been recalled
