@@ -12,7 +12,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.home}>
       <View style={styles.home__header}>
-        <Text style={styles.home__title}>Welcome to Recall Scanner</Text>
+        <Text style={styles.home__title}>Welcome to Scantra</Text>
         <Text style={styles.home__subtitle}>
           Keep your family safe from recalled products
         </Text>
