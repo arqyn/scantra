@@ -1,4 +1,7 @@
 import fetch from "node-fetch";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 interface FoodRecall {
   recall_number?: string;
@@ -18,7 +21,12 @@ interface FoodRecall {
 export async function getFoodRecalls(
   limit = 10
 ): Promise<FoodRecall[] | undefined> {
-  const url = `https://api.fda.gov/food/enforcement.json?limit=${limit}`;
+  const baseUrl = process.env.FDA_API_URL;
+  if (!baseUrl) {
+    throw new Error("FDA_API_URL not defined in environment variables");
+  }
+
+  const url = `${baseUrl}?limit=${limit}`;
 
   try {
     const response = await fetch(url);
